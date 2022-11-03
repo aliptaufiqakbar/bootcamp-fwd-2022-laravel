@@ -14,9 +14,15 @@ class AddForeignKeysToDetailUserTable extends Migration
     public function up()
     {
         Schema::table('detail_user', function (Blueprint $table) {
-            //
-        });
-    }
+            $table->foreign('user_id', 'fk_detail_user_to_users')->reference('id')->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('type_user_id', 'type_user')->reference('id')->on('type_users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+    });
+}
 
     /**
      * Reverse the migrations.
@@ -26,7 +32,8 @@ class AddForeignKeysToDetailUserTable extends Migration
     public function down()
     {
         Schema::table('detail_user', function (Blueprint $table) {
-            //
+            $table->dropForeignKey('fk_detail_user_to_users');
+            $table->dropForeignKey('fk_detail_user_to_type_users');
         });
     }
 }
