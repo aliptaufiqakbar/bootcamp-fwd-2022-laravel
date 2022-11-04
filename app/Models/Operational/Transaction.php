@@ -33,4 +33,9 @@ class Transaction extends Model
          'updated_at',
          'deleted_at'
      ];
+
+     public function appointment(){
+        //3 parameters (path model, field foreign Key , field primary key from table hasMany/hasOne relationship)
+        return $this->belongsTo('App\Models\Operational\Appointment', 'appointment_id', 'id');
+    }
 }
